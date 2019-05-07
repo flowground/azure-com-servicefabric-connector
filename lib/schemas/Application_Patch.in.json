@@ -1,0 +1,264 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "clusterName": {
+            "required": true,
+            "type": "string"
+        },
+        "applicationName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "description": "The resource model definition for proxy-only resource.",
+                    "properties": {
+                        "id": {
+                            "description": "Azure resource ID.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "location": {
+                            "description": "Resource location.",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "Azure resource name.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "Azure resource type.",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ],
+                    "x-ms-azure-resource": true,
+                    "type": "object"
+                }
+            ],
+            "description": "The application resource for patch operations.",
+            "properties": {
+                "properties": {
+                    "x-ms-client-flatten": true,
+                    "description": "The application resource properties for patch operations.",
+                    "properties": {
+                        "maximumNodes": {
+                            "default": 0,
+                            "description": "The maximum number of nodes where Service Fabric will reserve capacity for this application. Note that this does not mean that the services of this application will be placed on all of those nodes. By default, the value of this property is zero and it means that the services can be placed on any node.",
+                            "format": "int64",
+                            "minimum": 0,
+                            "type": "integer"
+                        },
+                        "metrics": {
+                            "description": "List of application capacity metric description.",
+                            "items": {
+                                "description": "Describes capacity information for a custom resource balancing metric. This can be used to limit the total consumption of this metric by the services of this application.\n",
+                                "properties": {
+                                    "MaximumCapacity": {
+                                        "description": "The maximum node capacity for Service Fabric application.\nThis is the maximum Load for an instance of this application on a single node. Even if the capacity of node is greater than this value, Service Fabric will limit the total load of services within the application on each node to this value.\nIf set to zero, capacity for this metric is unlimited on each node.\nWhen creating a new application with application capacity defined, the product of MaximumNodes and this value must always be smaller than or equal to TotalApplicationCapacity.\nWhen updating existing application with application capacity, the product of MaximumNodes and this value must always be smaller than or equal to TotalApplicationCapacity.\n",
+                                        "format": "int64",
+                                        "type": "integer"
+                                    },
+                                    "Name": {
+                                        "description": "The name of the metric.",
+                                        "type": "string"
+                                    },
+                                    "ReservationCapacity": {
+                                        "description": "The node reservation capacity for Service Fabric application.\nThis is the amount of load which is reserved on nodes which have instances of this application.\nIf MinimumNodes is specified, then the product of these values will be the capacity reserved in the cluster for the application.\nIf set to zero, no capacity is reserved for this metric.\nWhen setting application capacity or when updating application capacity; this value must be smaller than or equal to MaximumCapacity for each metric.\n",
+                                        "format": "int64",
+                                        "type": "integer"
+                                    },
+                                    "TotalApplicationCapacity": {
+                                        "description": "The total metric capacity for Service Fabric application.\nThis is the total metric capacity for this application in the cluster. Service Fabric will try to limit the sum of loads of services within the application to this value.\nWhen creating a new application with application capacity defined, the product of MaximumNodes and MaximumCapacity must always be smaller than or equal to this value.\n",
+                                        "format": "int64",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "minimumNodes": {
+                            "description": "The minimum number of nodes where Service Fabric will reserve capacity for this application. Note that this does not mean that the services of this application will be placed on all of those nodes. If this property is set to zero, no capacity will be reserved. The value of this property cannot be more than the value of the MaximumNodes property.",
+                            "format": "int64",
+                            "minimum": 0,
+                            "type": "integer"
+                        },
+                        "parameters": {
+                            "description": "List of application parameters with overridden values from their default values specified in the application manifest.",
+                            "items": {
+                                "description": "Describes an application parameter override to be applied when creating or upgrading an application.",
+                                "properties": {
+                                    "Key": {
+                                        "description": "The name of the parameter.",
+                                        "type": "string"
+                                    },
+                                    "Value": {
+                                        "description": "The value of the parameter.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "Key",
+                                    "Value"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "removeApplicationCapacity": {
+                            "description": "The version of the application type",
+                            "type": "boolean"
+                        },
+                        "typeVersion": {
+                            "description": "The version of the application type as defined in the application manifest.",
+                            "type": "string"
+                        },
+                        "upgradePolicy": {
+                            "description": "Describes the policy for a monitored application upgrade.",
+                            "properties": {
+                                "applicationHealthPolicy": {
+                                    "description": "Defines a health policy used to evaluate the health of an application or one of its children entities.\n",
+                                    "properties": {
+                                        "ConsiderWarningAsError": {
+                                            "default": false,
+                                            "description": "Indicates whether warnings are treated with the same severity as errors.",
+                                            "type": "boolean"
+                                        },
+                                        "DefaultServiceTypeHealthPolicy": {
+                                            "description": "Represents the health policy used to evaluate the health of services belonging to a service type.\n",
+                                            "properties": {
+                                                "MaxPercentUnhealthyPartitionsPerService": {
+                                                    "default": 0,
+                                                    "description": "The maximum allowed percentage of unhealthy partitions per service. Allowed values are Byte values from zero to 100\n\nThe percentage represents the maximum tolerated percentage of partitions that can be unhealthy before the service is considered in error.\nIf the percentage is respected but there is at least one unhealthy partition, the health is evaluated as Warning.\nThe percentage is calculated by dividing the number of unhealthy partitions over the total number of partitions in the service.\nThe computation rounds up to tolerate one failure on small numbers of partitions. Default percentage is zero.\n",
+                                                    "type": "integer"
+                                                },
+                                                "MaxPercentUnhealthyReplicasPerPartition": {
+                                                    "default": 0,
+                                                    "description": "The maximum allowed percentage of unhealthy replicas per partition. Allowed values are Byte values from zero to 100.\n\nThe percentage represents the maximum tolerated percentage of replicas that can be unhealthy before the partition is considered in error.\nIf the percentage is respected but there is at least one unhealthy replica, the health is evaluated as Warning.\nThe percentage is calculated by dividing the number of unhealthy replicas over the total number of replicas in the partition.\nThe computation rounds up to tolerate one failure on small numbers of replicas. Default percentage is zero.\n",
+                                                    "type": "integer"
+                                                },
+                                                "MaxPercentUnhealthyServices": {
+                                                    "default": 0,
+                                                    "description": "The maximum maximum allowed percentage of unhealthy services. Allowed values are Byte values from zero to 100.\n\nThe percentage represents the maximum tolerated percentage of services that can be unhealthy before the application is considered in error.\nIf the percentage is respected but there is at least one unhealthy service, the health is evaluated as Warning.\nThis is calculated by dividing the number of unhealthy services of the specific service type over the total number of services of the specific service type.\nThe computation rounds up to tolerate one failure on small numbers of services. Default percentage is zero.\n",
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "MaxPercentUnhealthyDeployedApplications": {
+                                            "default": 0,
+                                            "description": "The maximum allowed percentage of unhealthy deployed applications. Allowed values are Byte values from zero to 100.\nThe percentage represents the maximum tolerated percentage of deployed applications that can be unhealthy before the application is considered in error.\nThis is calculated by dividing the number of unhealthy deployed applications over the number of nodes where the application is currently deployed on in the cluster.\nThe computation rounds up to tolerate one failure on small numbers of nodes. Default percentage is zero.\n",
+                                            "type": "integer"
+                                        },
+                                        "ServiceTypeHealthPolicyMap": {
+                                            "description": "Defines a ServiceTypeHealthPolicy per service type name.\n\nThe entries in the map replace the default service type health policy for each specified service type. For example, in an application that contains both a stateless gateway service type and a stateful engine service type, the health policies for the stateless and stateful services can be configured differently. With policy per service type, there's more granular control of the health of the service.\n\nIf no policy is specified for a service type name, the DefaultServiceTypeHealthPolicy is used for evaluation.\n",
+                                            "items": {
+                                                "description": "Defines an item in ServiceTypeHealthPolicyMap.\n",
+                                                "properties": {
+                                                    "Key": {
+                                                        "description": "The key of the service type health policy map item. This is the name of the service type.",
+                                                        "type": "string"
+                                                    },
+                                                    "Value": {
+                                                        "description": "Represents the health policy used to evaluate the health of services belonging to a service type.\n",
+                                                        "properties": {
+                                                            "MaxPercentUnhealthyPartitionsPerService": {
+                                                                "default": 0,
+                                                                "description": "The maximum allowed percentage of unhealthy partitions per service. Allowed values are Byte values from zero to 100\n\nThe percentage represents the maximum tolerated percentage of partitions that can be unhealthy before the service is considered in error.\nIf the percentage is respected but there is at least one unhealthy partition, the health is evaluated as Warning.\nThe percentage is calculated by dividing the number of unhealthy partitions over the total number of partitions in the service.\nThe computation rounds up to tolerate one failure on small numbers of partitions. Default percentage is zero.\n",
+                                                                "type": "integer"
+                                                            },
+                                                            "MaxPercentUnhealthyReplicasPerPartition": {
+                                                                "default": 0,
+                                                                "description": "The maximum allowed percentage of unhealthy replicas per partition. Allowed values are Byte values from zero to 100.\n\nThe percentage represents the maximum tolerated percentage of replicas that can be unhealthy before the partition is considered in error.\nIf the percentage is respected but there is at least one unhealthy replica, the health is evaluated as Warning.\nThe percentage is calculated by dividing the number of unhealthy replicas over the total number of replicas in the partition.\nThe computation rounds up to tolerate one failure on small numbers of replicas. Default percentage is zero.\n",
+                                                                "type": "integer"
+                                                            },
+                                                            "MaxPercentUnhealthyServices": {
+                                                                "default": 0,
+                                                                "description": "The maximum maximum allowed percentage of unhealthy services. Allowed values are Byte values from zero to 100.\n\nThe percentage represents the maximum tolerated percentage of services that can be unhealthy before the application is considered in error.\nIf the percentage is respected but there is at least one unhealthy service, the health is evaluated as Warning.\nThis is calculated by dividing the number of unhealthy services of the specific service type over the total number of services of the specific service type.\nThe computation rounds up to tolerate one failure on small numbers of services. Default percentage is zero.\n",
+                                                                "type": "integer"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "Key",
+                                                    "Value"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "forceRestart": {
+                                    "default": false,
+                                    "description": "If true, then processes are forcefully restarted during upgrade even when the code version has not changed (the upgrade only changes configuration or data).",
+                                    "type": "boolean"
+                                },
+                                "rollingUpgradeMonitoringPolicy": {
+                                    "description": "The policy used for monitoring the application upgrade",
+                                    "properties": {
+                                        "healthCheckRetryTimeout": {
+                                            "default": "PT0H10M0S",
+                                            "description": "The amount of time to retry health evaluation when the application or cluster is unhealthy before FailureAction is executed. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds.",
+                                            "type": "string"
+                                        },
+                                        "healthCheckStableDuration": {
+                                            "default": "PT0H2M0S",
+                                            "description": "The amount of time that the application or cluster must remain healthy before the upgrade proceeds to the next upgrade domain. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds.",
+                                            "type": "string"
+                                        },
+                                        "healthCheckWaitDuration": {
+                                            "default": "0",
+                                            "description": "The amount of time to wait after completing an upgrade domain before applying health policies. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds.",
+                                            "type": "string"
+                                        },
+                                        "upgradeDomainTimeout": {
+                                            "default": "P10675199DT02H48M05.4775807S",
+                                            "description": "The amount of time each upgrade domain has to complete before FailureAction is executed. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds.",
+                                            "type": "string"
+                                        },
+                                        "upgradeTimeout": {
+                                            "default": "P10675199DT02H48M05.4775807S",
+                                            "description": "The amount of time the overall upgrade has to complete before FailureAction is executed. It is first interpreted as a string representing an ISO 8601 duration. If that fails, then it is interpreted as a number representing the total number of milliseconds.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "upgradeReplicaSetCheckTimeout": {
+                                    "default": 42949672925,
+                                    "description": "The maximum amount of time to block processing of an upgrade domain and prevent loss of availability when there are unexpected issues. When this timeout expires, processing of the upgrade domain will proceed regardless of availability loss issues. The timeout is reset at the start of each upgrade domain. Valid values are between 0 and 42949672925 inclusive. (unsigned 32-bit integer).",
+                                    "format": "int64",
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

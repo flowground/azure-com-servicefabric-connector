@@ -1,0 +1,543 @@
+{
+    "title": "ServiceFabricManagementClient",
+    "description": "Azure Service Fabric Resource Provider API Client",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/servicefabric/2017-07-01-preview/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "Operations_List": {
+            "main": "./lib/actions/Operations_List.js",
+            "title": "Lists all of the available ServiceFabric Resource Manager REST API operations.",
+            "description": "",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Operations_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Clusters_List": {
+            "main": "./lib/actions/Clusters_List.js",
+            "title": "List cluster resource",
+            "description": "List cluster resource\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Clusters_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClusterVersions_List": {
+            "main": "./lib/actions/ClusterVersions_List.js",
+            "title": "List cluster code versions by location",
+            "description": "List cluster code versions by location\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClusterVersions_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClusterVersions_Get": {
+            "main": "./lib/actions/ClusterVersions_Get.js",
+            "title": "Get cluster code versions",
+            "description": "Get cluster code versions by location\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClusterVersions_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClusterVersions_ListByEnvironment": {
+            "main": "./lib/actions/ClusterVersions_ListByEnvironment.js",
+            "title": "List cluster code versions by environment",
+            "description": "List cluster code versions by environment\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClusterVersions_ListByEnvironment.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClusterVersions_GetByEnvironment": {
+            "main": "./lib/actions/ClusterVersions_GetByEnvironment.js",
+            "title": "Get cluster code versions by environment",
+            "description": "Get cluster code versions by environment\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClusterVersions_GetByEnvironment.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Clusters_Delete": {
+            "main": "./lib/actions/Clusters_Delete.js",
+            "title": "Delete cluster resource",
+            "description": "Delete cluster resource\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Clusters_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Clusters_Get": {
+            "main": "./lib/actions/Clusters_Get.js",
+            "title": "Get cluster resource",
+            "description": "Get cluster resource\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Clusters_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Clusters_Update": {
+            "main": "./lib/actions/Clusters_Update.js",
+            "title": "Update cluster configuration",
+            "description": "Update cluster configuration\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Clusters_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Clusters_Create": {
+            "main": "./lib/actions/Clusters_Create.js",
+            "title": "Create a ServiceFabric cluster",
+            "description": "Create cluster resource\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Clusters_Create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ApplicationType_List": {
+            "main": "./lib/actions/ApplicationType_List.js",
+            "title": "Returns all application type names in the specified cluster.",
+            "description": "Returns all application type names in the specified cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ApplicationType_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ApplicationType_Delete": {
+            "main": "./lib/actions/ApplicationType_Delete.js",
+            "title": "Deletes the application type name resource.",
+            "description": "Deletes the application type name resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ApplicationType_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ApplicationType_Get": {
+            "main": "./lib/actions/ApplicationType_Get.js",
+            "title": "Returns an application type name resource.",
+            "description": "Returns an application type name resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ApplicationType_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ApplicationType_Put": {
+            "main": "./lib/actions/ApplicationType_Put.js",
+            "title": "Creates the application type name resource.",
+            "description": "Creates the application type name resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ApplicationType_Put.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Version_List": {
+            "main": "./lib/actions/Version_List.js",
+            "title": "Returns all versions for the specified application type.",
+            "description": "Returns all versions for the specified application type.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Version_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Version_Delete": {
+            "main": "./lib/actions/Version_Delete.js",
+            "title": "Unprovisions an application type version resource.",
+            "description": "Unprovisions an application type version resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Version_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Version_Get": {
+            "main": "./lib/actions/Version_Get.js",
+            "title": "Returns an application type version resource.",
+            "description": "Returns an application type version resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Version_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Version_Put": {
+            "main": "./lib/actions/Version_Put.js",
+            "title": "Provisions an application type version resource.",
+            "description": "Provisions an application type version resource.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Version_Put.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Application_List": {
+            "main": "./lib/actions/Application_List.js",
+            "title": "Returns all application resources in the specified cluster.",
+            "description": "Returns all application resources in the specified cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Application_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Application_Delete": {
+            "main": "./lib/actions/Application_Delete.js",
+            "title": "Deletes an application resource with the specified name.",
+            "description": "Deletes an application resource with the specified name.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Application_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Application_Get": {
+            "main": "./lib/actions/Application_Get.js",
+            "title": "Returns an application resource with the specified name.",
+            "description": "Returns an application resource with the specified name.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Application_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Application_Patch": {
+            "main": "./lib/actions/Application_Patch.js",
+            "title": "Updates an application resource with the specified name.",
+            "description": "Updates an application resource with the specified name.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Application_Patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Application_Put": {
+            "main": "./lib/actions/Application_Put.js",
+            "title": "Creates or updates an application resource with the specified name.",
+            "description": "Creates or updates an application resource with the specified name.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Application_Put.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Service_List": {
+            "main": "./lib/actions/Service_List.js",
+            "title": "Returns all service resources in the specified application.",
+            "description": "Returns all service resources in the specified application.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Service_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Service_Delete": {
+            "main": "./lib/actions/Service_Delete.js",
+            "title": "Deletes a service resource with the specified name.",
+            "description": "Deletes a service resource with the specified name.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Service_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Service_Get": {
+            "main": "./lib/actions/Service_Get.js",
+            "title": "Returns a service resource with the specified name.",
+            "description": "Returns a service resource with the specified name.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Service_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Service_Patch": {
+            "main": "./lib/actions/Service_Patch.js",
+            "title": "Updates a service resource with the specified name.",
+            "description": "Updates a service resource with the specified name.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Service_Patch.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Service_Put": {
+            "main": "./lib/actions/Service_Put.js",
+            "title": "Creates or updates a service resource with the specified name.",
+            "description": "Creates or updates a service resource with the specified name.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Service_Put.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Clusters_ListByResourceGroup": {
+            "main": "./lib/actions/Clusters_ListByResourceGroup.js",
+            "title": "List cluster resource by resource group",
+            "description": "List cluster resource by resource group\n",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Clusters_ListByResourceGroup.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
